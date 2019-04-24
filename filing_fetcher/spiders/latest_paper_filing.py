@@ -7,14 +7,20 @@ import os
 import scrapy
 
 import filing_fetcher.items
+import filing_fetcher.companies
 
-CONFIG_PATH = os.path.join(os.path.expanduser('~'), 'config', 'ch_api_key.ini')
+AUTH_CONFIG_PATH = os.path.join(os.path.expanduser('~'), 'config', 'ch_api_key.ini')
+GENERAL_CONFIG_PATH = os.path.join(os.path.expanduser('~'), 'config', 'filing_fetcher.ini')
+
 config = configparser.ConfigParser()
-config.read(CONFIG_PATH)
+config.read(AUTH_CONFIG_PATH)
+config.read(GENERAL_CONFIG_PATH)
 
 CH_AUTH = config['companies_house']['key']
 
 logger = logging.getLogger(__name__)
+
+FILING_HISTORY_URL = 'https://api.companieshouse.gov.uk/company/{}/filing-history?category=accounts'
 
 
 class LatestPaperFilingSpider(scrapy.spiders.CrawlSpider):
@@ -23,6 +29,23 @@ class LatestPaperFilingSpider(scrapy.spiders.CrawlSpider):
 
     http_user = CH_AUTH
     http_pass = ''
+
+    def start_requests(self):
+        """Generates crawler request for given base URL and parse results."""
+        basic_info_path = config['input_files']['basic_company_info']
+        logger.info(f"Reading basic company info from: {basic_info_path}")
+
+        companies_to_scrape = filing_fetcher.companies.companies_to_scrape(basic_info_path)
+
+        for company_info in companies_to_scrape:
+            logger.debug(f"Requesting {company_info}")
+            company_number = company_info["CompanyNumber"]
+
+            yield scrapy.Request(
+                url=FILING_HISTORY_URL.format(company_number),
+                meta=company_info,
+                callback=self.parse_filing_history
+            )
 
     def parse_filing_history(self, response):
         json_response = json.loads(response.body_as_unicode())

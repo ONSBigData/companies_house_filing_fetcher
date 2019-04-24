@@ -6,6 +6,7 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.exceptions import IgnoreRequest
 
 
 class FilingFetcherSpiderMiddleware(object):
@@ -78,6 +79,12 @@ class FilingFetcherDownloaderMiddleware(object):
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
+
+        # Scrapy would pass on the same basic authorization
+        # Amazon S3 would reject the request (the get has authorization already)
+        if "amazonaws.com" in request.url and 'Authorization' in request.headers:
+            del request.headers['Authorization']
+
         return None
 
     def process_response(self, request, response, spider):
