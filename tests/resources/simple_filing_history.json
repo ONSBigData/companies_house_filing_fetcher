@@ -1,0 +1,62 @@
+{
+    "total_count": 3,
+    "filing_history_status": "filing-history-available",
+    "items": [
+        {
+            "action_date": "2018-03-15",
+            "type": "AA",
+            "description": "accounts-with-accounts-type-full",
+            "paper_filed": true,
+            "description_values": {
+                "made_up_date": "2018-03-15"
+            },
+            "date": "2018-12-15",
+            "category": "accounts",
+            "links": {
+                "self": "/company/TESTCOMPANY/filing-history/abcdefghijkl",
+                "document_metadata": "https://frontend-doc-api.companieshouse.gov.uk/document/ABCDEFGHIJKL"
+            },
+            "pages": 56,
+            "barcode": "ABARCODE01",
+            "transaction_id": "abcdefghijkl"
+        },
+        {
+            "action_date": "2017-03-15",
+            "type": "AA",
+            "description": "accounts-with-accounts-type-full",
+            "paper_filed": true,
+            "description_values": {
+                "made_up_date": "2017-03-15"
+            },
+            "date": "2017-12-15",
+            "category": "accounts",
+            "links": {
+                "self": "/company/TESTCOMPANY/filing-history/abcdefghijkl",
+                "document_metadata": "https://frontend-doc-api.companieshouse.gov.uk/document/ABCDEFGHIJKL"
+            },
+            "pages": 56,
+            "barcode": "ABARCODE01",
+            "transaction_id": "abcdefghijkl"
+        },
+        {
+            "action_date": "2016-03-15",
+            "type": "AA",
+            "description": "accounts-with-accounts-type-full",
+            "paper_filed": true,
+            "description_values": {
+                "made_up_date": "2016-03-15"
+            },
+            "date": "2016-12-15",
+            "category": "accounts",
+            "links": {
+                "self": "/company/TESTCOMPANY/filing-history/abcdefghijkl",
+                "document_metadata": "https://frontend-doc-api.companieshouse.gov.uk/document/ABCDEFGHIJKL"
+            },
+            "pages": 56,
+            "barcode": "ABARCODE01",
+            "transaction_id": "abcdefghijkl"
+        }
+    ],
+    "start_index": 0,
+    "items_per_page": 25
+}
