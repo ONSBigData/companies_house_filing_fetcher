@@ -46,9 +46,6 @@ class LatestPaperFilingSpider(scrapy.spiders.CrawlSpider):
             logger.debug(f"Request {i} - {company_info}")
             company_number = company_info["CompanyNumber"]
 
-            if i > 1000:
-                break
-
             yield scrapy.Request(
                 url=FILING_HISTORY_URL.format(company_number),
                 meta=company_info,
