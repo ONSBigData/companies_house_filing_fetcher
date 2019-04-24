@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 import os
 
 import pandas as pd
@@ -28,12 +29,16 @@ def already_seen():
 
     if _already_seen is None:
         if os.path.isfile(config.LATEST_FILING_FEED_FILE):
-            df = pd.read_json(config.LATEST_FILING_FEED_FILE, orient='records', lines=True)
 
-            if len(df) > 0:
-                _already_seen = set(df.company_number)
-            else:
-                _already_seen = set()
+            with open(config.LATEST_FILING_FEED_FILE) as f:
+
+                company_numbers = []
+                for line in f:
+                    company_number = json.loads(line)['company_number']
+                    company_numbers.append(company_number)
+
+            _already_seen = set(company_numbers)
+
         else:
             _already_seen = set()
 
@@ -84,4 +89,4 @@ def companies_to_scrape(filepath):
 
 if __name__ == '__main__':
 
-    print(len(list(companies_to_scrape())))
+    print(len(list(companies_to_scrape(config.BASIC_COMPANY_INFO_FILEPATH))))
