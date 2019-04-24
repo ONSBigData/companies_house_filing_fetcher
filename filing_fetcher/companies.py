@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-@author: Philip Lee
-"""
 import pandas as pd
 
 
@@ -16,15 +13,19 @@ def read_basic_company_data(filepath):
         'Accounts.AccountCategory'
     ]
 
-    df = pd.read_csv(filepath, usecols=relevant_columns, dtype={' CompanyNumber': str})
+    dfs = pd.read_csv(filepath, usecols=relevant_columns, dtype={' CompanyNumber': str}, chunksize=100000)
 
-    df = df.rename(columns={' CompanyNumber': 'CompanyNumber'})
+    for df in dfs:
+        df = df.rename(columns={' CompanyNumber': 'CompanyNumber'})
 
-    return df
+        yield df
+
+
+def filter_active_and_has_filed(df):
+    return df[df.CompanyStatus.str.startswith('Active') & df['Accounts.LastMadeUpDate'].notnull()]
 
 
 def companies_to_scrape(basic_info_filepath):
 
-    df = read_basic_company_data(basic_info_filepath)
-
-    return df.sample(n=1000).iloc[:1000].to_dict(orient='records')
+    for df in read_basic_company_data(basic_info_filepath):
+        yield from filter_active_and_has_filed(df).to_dict(orient='records')

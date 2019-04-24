@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-@author: Philip Lee
-"""
 import os
 import filing_fetcher.companies
 
