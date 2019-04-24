@@ -8,7 +8,12 @@
 import scrapy
 
 
-class FilingFetcherItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class FilingItem(scrapy.Item):
+    pages = scrapy.Field()
+    date = scrapy.Field()
+    type = scrapy.Field()
+    barcode = scrapy.Field()
+    file_urls = scrapy.Field()
+    files = scrapy.Field()
+    company_number = scrapy.Field()
+    made_up_date = scrapy.Field()
