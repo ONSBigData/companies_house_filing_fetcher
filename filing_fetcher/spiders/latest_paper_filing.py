@@ -8,17 +8,23 @@ import scrapy
 
 import filing_fetcher.items
 import filing_fetcher.companies
+import filing_fetcher.configuration
 
-AUTH_CONFIG_PATH = os.path.join(os.path.expanduser('~'), 'config', 'ch_api_key.ini')
-GENERAL_CONFIG_PATH = os.path.join(os.path.expanduser('~'), 'config', 'filing_fetcher.ini')
 
-config = configparser.ConfigParser()
-config.read(AUTH_CONFIG_PATH)
-config.read(GENERAL_CONFIG_PATH)
+def fetch_auth():
+    auth_config_path = os.path.join(os.path.expanduser('~'), 'config', 'ch_api_key.ini')
 
-CH_AUTH = config['companies_house']['key']
+    config = configparser.ConfigParser()
+    config.read(auth_config_path)
+
+    return config['companies_house']['key']
+
+
+CH_AUTH = fetch_auth()
 
 logger = logging.getLogger(__name__)
+
+config = filing_fetcher.configuration.get_config()
 
 FILING_HISTORY_URL = 'https://api.companieshouse.gov.uk/company/{}/filing-history?category=accounts'
 
@@ -32,10 +38,9 @@ class LatestPaperFilingSpider(scrapy.spiders.CrawlSpider):
 
     def start_requests(self):
         """Generates crawler request for given base URL and parse results."""
-        basic_info_path = config['input_files']['basic_company_info']
-        logger.info(f"Reading basic company info from: {basic_info_path}")
+        logger.info(f"Reading basic company info from: {config.BASIC_COMPANY_INFO_FILEPATH}")
 
-        companies_to_scrape = filing_fetcher.companies.companies_to_scrape(basic_info_path)
+        companies_to_scrape = filing_fetcher.companies.companies_to_scrape(config.BASIC_COMPANY_INFO_FILEPATH)
 
         for i, company_info in enumerate(companies_to_scrape):
             logger.debug(f"Request {i} - {company_info}")
