@@ -12,6 +12,10 @@
 import os
 import datetime
 
+import filing_fetcher.configuration
+
+config = filing_fetcher.configuration.get_config()
+
 BOT_NAME = 'filing_fetcher'
 
 SPIDER_MODULES = ['filing_fetcher.spiders']
@@ -104,4 +108,4 @@ LOG_FILE = os.path.join(os.path.expanduser('~'), 'logs', f'companies_house_scrap
 
 FEED_FORMAT = "jsonlines"
 
-FEED_URI = os.path.join(os.path.expanduser('~'), 'data', 'companies_house', 'api_scrape', 'test.json')
+FEED_URI = config.LATEST_FILING_FEED_FILE

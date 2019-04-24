@@ -30,7 +30,6 @@ def test_companies_to_scrape():
         'TESTA001',
         'TESTB002',
         'TESTC003',
-        'TESTD004',
         'TESTE005',
     ]
 

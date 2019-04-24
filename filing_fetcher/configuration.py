@@ -67,7 +67,7 @@ class YamlConfigProvider(ConfigProvider):
             logger.info(f'Reading config from {self.filepath}')
             print('Reading config from', self.filepath)
             with open(self.filepath, 'rb') as f:
-                yaml_conf = yaml.load(f)
+                yaml_conf = yaml.load(f, Loader=yaml.FullLoader)
 
             return yaml_conf.items()
 
@@ -106,6 +106,8 @@ class Config(metaclass=Singleton):
     def __init__(self):
 
         self.BASIC_COMPANY_INFO_FILEPATH = None
+        self.DIGITAL_REPORTERS_FILEPATH = None
+        self.LATEST_FILING_FEED_FILE = None
         self.LOG_DIR = str(Path.home().joinpath('logs'))
 
         for key, value in Config.config_provider.fetch_config():
