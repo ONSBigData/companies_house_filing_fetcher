@@ -89,11 +89,16 @@ class LatestPaperFilingSpider(scrapy.spiders.CrawlSpider):
 
                 try:
                     filing_item["made_up_date"] = most_recent_filing["description_values"]["made_up_date"]
+
                 except KeyError:
-                    pass
+                    logger.info(f"No made_up_date for company: {response.meta['CompanyNumber']}")
 
                 if 'paper_filed' in most_recent_filing and most_recent_filing['paper_filed']:
 
-                    filing_item['file_urls'] = [most_recent_filing['links']['document_metadata'] + '/content']
+                    try:
+                        filing_item['file_urls'] = [most_recent_filing['links']['document_metadata'] + '/content']
+
+                    except KeyError:
+                        logger.exception(f"No document_metadata for company: {response.meta['CompanyNumber']}")
 
         yield filing_item
