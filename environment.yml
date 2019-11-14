@@ -71,5 +71,5 @@ dependencies:
   - pip:
     - scrapy==1.6.0
     - service-identity==18.1.0
-prefix: /home/phil/anaconda2/envs/pdf_downloader
+
 

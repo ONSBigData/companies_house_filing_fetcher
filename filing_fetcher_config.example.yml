@@ -13,3 +13,6 @@ DIGITAL_REPORTERS_FILEPATH: /path/to/file/digital_reporters.csv
 # Scrapy appends the result of the scrape to this json file
 # Filing fetcher will skip any companies which are already present in the file
 LATEST_FILING_FEED_FILE: /path/to/file/latest_paper_filings.json
+
+# User agent to be used by Scrapy
+USER_AGENT = 'your_user_agent_string (+http://example.com)'
