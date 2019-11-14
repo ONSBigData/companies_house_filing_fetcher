@@ -1,6 +1,11 @@
 # Companies House filings fetcher
 
-Downloads paper filings from the Companies House API
+Downloads paper filings from the Companies House API.
+
+Uses [Scrapy](https://scrapy.org/) to manage downloading account filings from 
+the Companies House API.
+
+NOTE: This project was created as a prototype
 
 ## Usage
 
