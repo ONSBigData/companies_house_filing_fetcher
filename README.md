@@ -28,6 +28,8 @@ Set up the Python environment:
     conda activate pdf_downloader
 ```
 
+Download a BasicCompanyDataAsOneFile csv from http://download.companieshouse.gov.uk/en_output.html.
+
 Copy the config files to `~/config` and edit their contents:
 
 ```shell

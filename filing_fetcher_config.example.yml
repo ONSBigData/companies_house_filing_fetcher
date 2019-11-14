@@ -4,7 +4,7 @@
 # BasicCompanyDataAsOneFile csv file to use
 # Filing fetcher will download filings for companies in this file
 # See: http://download.companieshouse.gov.uk/en_output.html for the latest file
-BASIC_COMPANY_INFO_FILEPATH: /path/to/file/BasicCompanyDataAsOneFile-YYYY-MM-01.csv
+BASIC_COMPANY_INFO_FILEPATH: /path/to/file/BasicCompanyDataAsOneFile-YYYY-MM-DD.csv
 
 # Filing fetcher skips over companies for which we already have a digital filing
 # This is determined by presence in this csv file
