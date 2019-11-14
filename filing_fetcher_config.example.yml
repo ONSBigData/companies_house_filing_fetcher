@@ -1,0 +1,15 @@
+# Config for the companies_house_filing_fetcher
+# Default location ~/config/filing_fetcher_config.yml
+
+# BasicCompanyDataAsOneFile csv file to use
+# Filing fetcher will download filings for companies in this file
+# See: http://download.companieshouse.gov.uk/en_output.html for the latest file
+BASIC_COMPANY_INFO_FILEPATH: /path/to/file/BasicCompanyDataAsOneFile-YYYY-MM-01.csv
+
+# Filing fetcher skips over companies for which we already have a digital filing
+# This is determined by presence in this csv file
+DIGITAL_REPORTERS_FILEPATH: /path/to/file/digital_reporters.csv
+
+# Scrapy appends the result of the scrape to this json file
+# Filing fetcher will skip any companies which are already present in the file
+LATEST_FILING_FEED_FILE: /path/to/file/latest_paper_filings.json
